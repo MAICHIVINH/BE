@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: spring-demo
+    ports:
+      - "5005:5005"
+    env_file:
+      - .env.production
