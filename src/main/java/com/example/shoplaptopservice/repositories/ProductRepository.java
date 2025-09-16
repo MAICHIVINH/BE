@@ -8,5 +8,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Products, Integer> {
     List<Products> findByProductNameContainingIgnoreCase(String keyword);
     List<Products> findByProductStatusTrue();
-    List<Products> findByIsDeletedFalse();
+    List<Products> findByIsDeletedTrue();
+    List<Products> findByProductStatusTrueAndIsDeletedFalse();
+
 }

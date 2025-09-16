@@ -8,4 +8,6 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<Brands, Integer> {
     List<Brands> findByBrandNameContainingIgnoreCase(String keyword);
     List<Brands> findByBrandStatusTrue();
+    List<Brands> findByDeletedTrue();
+    List<Brands> findByBrandStatusTrueAndDeletedFalse();
 }

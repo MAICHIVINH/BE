@@ -16,6 +16,17 @@ public class Categories {
     @Column(name = "category_status")
     private Boolean categoryStatus;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public Integer getCategoryId() {
         return categoryId;
     }

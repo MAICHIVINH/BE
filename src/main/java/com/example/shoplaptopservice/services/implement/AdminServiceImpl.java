@@ -1,7 +1,9 @@
 package com.example.shoplaptopservice.services.implement;
 
 import com.example.shoplaptopservice.entities.Admins;
+import com.example.shoplaptopservice.entities.Roles;
 import com.example.shoplaptopservice.repositories.AdminRepository;
+import com.example.shoplaptopservice.repositories.RoleRepository;
 import com.example.shoplaptopservice.services.AdminService;
 import com.example.shoplaptopservice.utils.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private CloudinaryService cloudinaryService;
@@ -47,9 +52,18 @@ public class AdminServiceImpl implements AdminService {
                 throw new RuntimeException("Upload avatar failed: " + e.getMessage(), e);
             }
         }
+
         if (admin.getDeleted() == null) {
             admin.setDeleted(false);
         }
+
+        // Gán role chắc chắn từ DB
+        if (admin.getRoles() != null && admin.getRoles().getRoleId() != null) {
+            Roles role = roleRepository.findById(admin.getRoles().getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
+            admin.setRoles(role);
+        }
+
         return adminRepository.save(admin);
     }
 
@@ -73,6 +87,13 @@ public class AdminServiceImpl implements AdminService {
         existing.setAdminAddress(admin.getAdminAddress());
         existing.setAdminStatus(admin.getAdminStatus());
 
+
+        // Gán role chắc chắn từ DB
+        if (admin.getRoles() != null && admin.getRoles().getRoleId() != null) {
+            Roles role = roleRepository.findById(admin.getRoles().getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
+            existing.setRoles(role);
+        }
         return adminRepository.save(existing);
     }
 

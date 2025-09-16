@@ -21,7 +21,12 @@ public interface CategoryService {
 
     void deleteCategory(Integer id);
 
+    void deleteCategoryForever(Integer id);
+
     List<Categories> searchCategoryByCategoryName(String keyword);
 
     List<Categories> getCategoryByStatusTrue();
+
+    List<Categories> getDeletedCategory();
+
 }

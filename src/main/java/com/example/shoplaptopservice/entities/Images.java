@@ -14,11 +14,23 @@ public class Images {
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     private Products products;
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+
+    @Column(name = "is_main")
+    private Boolean isMain;
+
+    @Column(name = "is_deleted" , nullable = false)
+    private Boolean isDeleted = false;
+
+    public Boolean getMain() {
+        return isMain;
+    }
+
+    public void setMain(Boolean main) {
+        isMain = main;
+    }
 
     public Boolean getDeleted() {
         return isDeleted;

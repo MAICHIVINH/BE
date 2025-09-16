@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -42,6 +44,12 @@ public class Products {
     @Column(name = "product_status")
     private Boolean productStatus;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Images> images = new ArrayList<>();
+
     public Boolean getDeleted() {
         return isDeleted;
     }
@@ -49,9 +57,6 @@ public class Products {
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
-
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
 
     public Integer getProductId() {
         return productId;

@@ -1,6 +1,7 @@
 package com.example.shoplaptopservice.services;
 
-import com.example.shoplaptopservice.entities.Brands;
+import com.example.shoplaptopservice.dto.request.BrandRequest;
+import com.example.shoplaptopservice.dto.response.BrandResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,19 +10,23 @@ import java.util.Optional;
 
 public interface BrandService {
 
-    List<Brands> getAllBrand();
+    List<BrandResponse> getAllBrand();
 
-    Page<Brands> getBrandPaging(Pageable pageable);
+    Page<BrandResponse> getBrandPaging(Pageable pageable);
 
-    Optional<Brands> getBrandById(Integer id);
+    BrandResponse getBrandById(Integer id);
 
-    Brands createBrand(Brands brand);
+    BrandResponse createBrand(BrandRequest brandRequest);
 
-    Brands updateBrand(Integer id, Brands brand);
+    BrandResponse updateBrand(Integer id, BrandRequest brandRequest);
 
     void deleteBrand(Integer id);
 
-    List<Brands> searchBrandByBrandName(String keyword);
+    void deleteBrandForever(Integer id);
 
-    List<Brands> getBrandByStatusTrue();
+    List<BrandResponse> searchBrandByBrandName(String keyword);
+
+    List<BrandResponse> getBrandByStatusTrue();
+
+    List<BrandResponse> getDeletedBrands();
 }

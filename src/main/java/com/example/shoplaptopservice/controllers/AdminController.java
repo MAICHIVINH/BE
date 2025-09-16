@@ -48,11 +48,6 @@ public class AdminController {
         return adminService.getAdminById(id);
     }
 
-//    @PostMapping("/add")
-//    public String createAdmin(@RequestBody Admins admin) {
-//        adminService.createAdmin(admin);
-//        return "Admin created successfully!";
-//    }
 
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createAdmin(

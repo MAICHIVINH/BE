@@ -21,6 +21,11 @@ public class CategoryController {
         return categoryService.getAllCategory();
     }
 
+    @GetMapping("/deleted")
+    public List<Categories> getDeletedCategory(){
+        return categoryService.getDeletedCategory();
+    }
+
     @GetMapping("/page")
     public Page<Categories> getCategoryPaging(@RequestParam int page, @RequestParam int size) {
         return categoryService.getCategoryPaging(PageRequest.of(page, size));
@@ -47,6 +52,12 @@ public class CategoryController {
     public String deleteCategory(@PathVariable Integer id) {
         categoryService.deleteCategory(id);
         return "Category deleted successfully!";
+    }
+
+    @DeleteMapping("/delete-hard/{id}")
+    public String deleteCategoryForever(@PathVariable Integer id) {
+        categoryService.deleteCategoryForever(id);
+        return "Category permanently deleted!";
     }
 
     @GetMapping("/search")

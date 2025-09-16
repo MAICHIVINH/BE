@@ -18,7 +18,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Categories> getAllCategory() {
-        return categoryRepository.findAll();
+        return categoryRepository.findByCategoryStatusTrueAndIsDeletedFalse();
+    }
+
+    @Override
+    public List<Categories> getDeletedCategory() {
+        return categoryRepository.findByIsDeletedTrue();
     }
 
     @Override
@@ -47,6 +52,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Integer id) {
+        Categories category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with in: " + id));
+        category.setDeleted(true);
+        category.setCategoryStatus(false);
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteCategoryForever(Integer id) {
+        if(!categoryRepository.existsById(id)) {
+            throw new RuntimeException("Category not found with in: " + id);
+        }
         categoryRepository.deleteById(id);
     }
 
